@@ -9,33 +9,10 @@ const bot = new BootBot({
 
 const conv_data = {
     services: [
-        {name: "Kredit", id: 1, flow: ["askAmount", "askSalary"]},
-        {name: "Sigorta", id: 2, flow: ["askSalary", "askAmount"]},
+        {name: "Kredit", id: 1, flow: ["askAmount", "askSalary", "askPurpose"]},
+        {name: "Sigorta", id: 2, flow: ["askSalary", "askAmount", "askPurpose"]},
         {name: "Travel", id: 3, flow: ["askAmount", "askSalary"]}
-    ],
-    flow: {
-        askAmount: {
-            text: "Xahiş edirəm kredit məbləğini qeyd edin:",
-            res_type: "int",
-            ui: null,
-            service_id: [1, 2]
-        },
-        askSalary: {
-            text: "Aylıq gəlirinizi qeyd edin:",
-            res_type: "int",
-            ui: null,
-            service_id: [1, 3]
-        },
-        askPurpose: {
-            text: "Kredit alma səbəbi:",
-            res_type: "string",
-            ui: {
-                type: "button",
-                gui: ["Təhsil", "Daşınmaz əmlak", "Avtomobil"]
-            },
-            service_id: [1, 3]
-        }
-    }
+    ]
 };
 
 const serviceButtons = () => {
@@ -54,8 +31,7 @@ function service_methods (s, c) {
             convo.ask(`Almaq istədiyiniz məbləğ:`, (payload, convo) => {
                 const text = payload.message.text;
                 convo.set('amount', text);
-                console.log(serviceIndex, "serviceIndex", serviceIndex === 0 ? service.flow.indexOf[serviceIndex+1] : "sendSummary");
-                convo.say(`${service.name} məbləğ: ${text}`).then(() => service_methods(service, convo)[serviceIndex === 0 ? service.flow[serviceIndex+1] : "sendSummary"](service, convo));
+                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
             });
         },
         askAmount: (service = s, convo = c) => {
@@ -63,12 +39,26 @@ function service_methods (s, c) {
             convo.ask(`Aylıq gəliriniz:`, (payload, convo) => {
                 const text = payload.message.text;
                 convo.set('salary', text);
-                console.log(service, serviceIndex, "serviceIndex", service.flow.indexOf[serviceIndex+1]);
-                convo.say(`Aylıq gəliriniz: ${text}`).then(() => service_methods(service, convo)[serviceIndex === 0 ? service.flow[serviceIndex+1] : "sendSummary"](service, convo));
+                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
+            });
+        },
+        askPurpose: (service = s, convo = c) => {
+            const serviceIndex = service.flow.indexOf("askPurpose");
+            convo.ask({
+                text: `Nə üçün ${service.name} istəyirsiniz?`,
+                buttons: [
+                    { type: 'postback', title: "Təhsil", payload: `purposeID_1` },
+                    { type: 'postback', title: "Daşınmaz əmlak", payload: `purposeID_2` },
+                    { type: 'postback', title: "Avtomobil", payload: `purposeID_3` }
+                ]
+            }, (payload, convo) => {
+                const text = payload.postback.title;
+                convo.set('purpose', text);
+                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
             });
         },
         sendSummary: (service, convo) => {
-            convo.say(`Məlumatlarınız:\n- Xidmət: ${service.name}\n- Məbləğ: ${convo.get('amount')}\n- Maaş: ${convo.get('salary')}`);
+            convo.say(`Məlumatlarınız:\n- Xidmət: ${service.name}\n- Məbləğ: ${convo.get('amount')}\n- Maaş: ${convo.get('salary')}\n- Səbəb: ${convo.get('purpose')}`);
             convo.end();
         }
     }
@@ -77,15 +67,13 @@ function service_methods (s, c) {
 bot.on('message', (payload, chat) => {
     const askServices = (convo) => {
         convo.ask({
-            text: `Salam! Maraqlandığınız məhsullarımızdan birini seçin:`,
+            text: `Salam!\nMaraqlandığınız məhsullarımızdan birini seçin:`,
             buttons: serviceButtons()
         }, (payload, convo) => {
             const text = payload.postback.title;
             convo.set('service', text);
-            convo.say(`${text} seçildi.`).then(() => {
-                const service = conv_data.services.filter((x) => x.name === text)[0];
-                service_methods(service, convo)[service.flow[0]]();
-            });
+            const service = conv_data.services.filter((x) => x.name === text)[0];
+            service_methods(service, convo)[service.flow[0]]();
         });
     };
 
