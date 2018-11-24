@@ -17,29 +17,41 @@ const conv_data = {
 
 const serviceButtons = () => {
     let buttons = [];
-    for(let x = 0; x < conv_data.services.length; x++) {
+    for (let x = 0; x < conv_data.services.length; x++) {
         const {name, id} = conv_data.services[x];
-        buttons.push({ type: 'postback', title: name, payload: `serviceID_${id}` })
+        buttons.push({type: 'postback', title: name, payload: `serviceID_${id}`})
     }
     return buttons;
 };
 
-function service_methods (s, c) {
+function next(obj) {
+    const {convo, service, text, serviceIndex, askType} = obj.payload;
+    const {intReq} = obj.config;
+    if(intReq && isNaN(text)) return convo.say("Xahiş edirik rəqəm daxil edin.").then(() => service_methods(service, convo)[service.flow[serviceIndex]](service, convo));
+    convo.set(askType, text);
+    return service_methods(service, convo)[typeof service.flow[serviceIndex + 1] !== "undefined" ? service.flow[serviceIndex + 1] : "sendSummary"](service, convo);
+}
+
+function service_methods(s, c) {
     return {
         askSalary: (service = s, convo = c) => {
             const serviceIndex = service.flow.indexOf("askSalary");
-            convo.ask(`Almaq istədiyiniz məbləğ:`, (payload, convo) => {
+            convo.ask(`${service.name} məbləği (AZN):`, (payload, convo) => {
                 const text = payload.message.text;
-                convo.set('amount', text);
-                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
+                next({
+                    payload: {convo, service, text, serviceIndex, askType: "salary"},
+                    config: {intReq: true}
+                });
             });
         },
         askAmount: (service = s, convo = c) => {
             const serviceIndex = service.flow.indexOf("askAmount");
-            convo.ask(`Aylıq gəliriniz:`, (payload, convo) => {
+            convo.ask(`Aylıq gəliriniz (AZN):`, (payload, convo) => {
                 const text = payload.message.text;
-                convo.set('salary', text);
-                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
+                next({
+                    payload: {convo, service, text, serviceIndex, askType: "amount"},
+                    config: {intReq: true}
+                });
             });
         },
         askPurpose: (service = s, convo = c) => {
@@ -47,18 +59,20 @@ function service_methods (s, c) {
             convo.ask({
                 text: `Nə üçün ${service.name} istəyirsiniz?`,
                 buttons: [
-                    { type: 'postback', title: "Təhsil", payload: `purposeID_1` },
-                    { type: 'postback', title: "Daşınmaz əmlak", payload: `purposeID_2` },
-                    { type: 'postback', title: "Avtomobil", payload: `purposeID_3` }
+                    {type: 'postback', title: "Təhsil", payload: `purposeID_1`},
+                    {type: 'postback', title: "Daşınmaz əmlak", payload: `purposeID_2`},
+                    {type: 'postback', title: "Avtomobil", payload: `purposeID_3`}
                 ]
             }, (payload, convo) => {
                 const text = payload.postback.title;
-                convo.set('purpose', text);
-                service_methods(service, convo)[typeof service.flow[serviceIndex+1] !== "undefined" ? service.flow[serviceIndex+1] : "sendSummary"](service, convo);
+                next({
+                    payload: {convo, service, text, serviceIndex, askType: "purpose"},
+                    config: {intReq: false}
+                });
             });
         },
         sendSummary: (service, convo) => {
-            convo.say(`Məlumatlarınız:\n- Xidmət: ${service.name}\n- Məbləğ: ${convo.get('amount')}\n- Maaş: ${convo.get('salary')}\n- Səbəb: ${convo.get('purpose')}`);
+            convo.say(`Təşəkkür edirik.\nDaxil olunan məlumatlar:\n- Xidmət: ${service.name || "Boş"}\n- Məbləğ: ${convo.get('amount') || "Boş"}\n- Maaş: ${convo.get('salary') || "Boş"}\n- Səbəb: ${convo.get('purpose') || "Boş"}`);
             convo.end();
         }
     }
