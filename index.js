@@ -89,37 +89,6 @@ bot.on('message', (payload, chat) => {
         });
     };
 
-    // const askAmount = (service, convo) => {
-    //     convo.ask(`Almaq istədiyiniz məbləğ:`, (payload, convo) => {
-    //         const text = payload.message.text;
-    //         convo.set('amount', text);
-    //         convo.say(`${service.name} məbləğ: ${text}`).then(() => {
-    //             const curent_service = service.flow.indexOf("askAmount");
-    //
-    //             if(curent_service !== -1) {
-    //
-    //             }
-    //
-    //             sendSummary(service, convo);
-    //         });
-    //     });
-    // };
-    //
-    // const askSalary = (service, convo) => {
-    //     convo.ask(`Aylıq gəliriniz:`, (payload, convo) => {
-    //         const text = payload.message.text;
-    //         convo.set('salary', text);
-    //         convo.say(`Aylıq gəliriniz: ${text}`).then(() => sendSummary(service, convo));
-    //     });
-    // };
-    //
-    // const sendSummary = (service, convo) => {
-    //     convo.say(`Məlumatlarınız:
-    //       - Xidmət: ${service.name}
-	 //      - Məbləğ: ${convo.get('amount')}
-	 //      - Maaş: ${convo.get('salary')}`);
-    //     convo.end();
-    // };
     chat.conversation((convo) => {
         askServices(convo);
     });
