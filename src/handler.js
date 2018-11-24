@@ -1,13 +1,14 @@
 const BootBot = require('bootbot');
+const config = require('../config');
 const button = require('./helpers/button');
 const response = require('./response');
 
 class Handler {
     constructor() {
         this.init = new BootBot({
-            accessToken: 'EAAOOZB2TZANngBAI7ST4UMli3JG5ZBq0NvKGAECrZCrUIzopouaC5iJec2wgm3VptnMcZADsrq284P7vNSLiKYRjzy9PDIZCFrovtwPdesvyZC7rmUnijZB5ZCxsCkYSjZB33gE3TCKKMvtYrFzrv7Ia7oK3hHSlAFJ2pOBnU5ohF1sQZDZD',
-            verifyToken: 'fintech_token',
-            appSecret: '66f6370d58713090b79ebbd3e4f2a821'
+            accessToken: config.tokens.messenger.accessToken,
+            verifyToken: config.tokens.messenger.verifyToken,
+            appSecret: config.tokens.messenger.appSecret
         });
 
         this.data = {
