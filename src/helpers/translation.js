@@ -8,9 +8,9 @@ module.exports = (action, v = null) => {
             return `Nə üçün ${v[0]} istəyirsiniz?`;
         case "askPurpose_btn":
             return [
-                {type: 'postback', id: 1, title: "Təhsil"},
-                {type: 'postback', id: 2, title: "Daşınmaz əmlak"},
-                {type: 'postback', id: 3, title: "Avtomobil"}
+                {type: 'postback', id: 1, title: "🎓 Təhsil"},
+                {type: 'postback', id: 2, title: "🏠 Daşınmaz əmlak"},
+                {type: 'postback', id: 3, title: "🚘 Avtomobil"}
             ];
         default:
             return null;

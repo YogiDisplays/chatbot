@@ -12,9 +12,9 @@ class Handler {
 
         this.data = {
             services: [
-                {title: "Kredit", id: 1, flow: ["askAmount", "askSalary", "askPurpose"], type: 'postback'},
-                {title: "Sigorta", id: 2, flow: ["askSalary", "askAmount", "askPurpose"], type: 'postback'},
-                {title: "Travel", id: 3, flow: ["askAmount", "askSalary"], type: 'postback'}
+                {title: "💵 Kredit", id: 1, flow: ["askAmount", "askSalary", "askPurpose"], type: 'postback'},
+                {title: "💂 Sigorta", id: 2, flow: ["askSalary", "askAmount", "askPurpose"], type: 'postback'},
+                {title: "✈️ Travel", id: 3, flow: ["askAmount", "askSalary"], type: 'postback'}
             ]
         }
     }
