@@ -2,14 +2,16 @@ module.exports = (s, v = null) => {
     try {
         const stringList = {
             "chooseProduct_err": "Məhsul seçin.",
-            "invalidMoney_err": "Nöqtə və vergüldən istifadə etməyin.",
+            "invalidMoneyComma_err": "Nöqtə və vergüldən istifadə etməyin.",
+            "invalidMoneyLimits_err": "Limiti keçdiniz. Məbləğ limitləri: minimum {0}, maksimum {1}",
+            "invalidCharLimits_err": "Limiti keçdiniz. Simvol limitləri: minimum {0}, maksimum {1}",
             "intReq_err": "Yalnız rəqəm daxil edin (vergüldən istifadə etməyin).",
             "invalidInput_err": "Düzgün məlumat qeyd edin.",
             "invalidFileType_err": "Göndərilən fayl, şəkil deyil.",
 
             "chooseProduct_info": "Maraqlandığınız məhsullarımızdan birini seçin:",
             "ineligibleCustomer_info": "Təəssüf ki, siz {0} almağa uyğun deyilsiniz.",
-            "tryAgain_info": "Yenidən yoxla",
+            "tryAgain_info": "🔁 Yenidən yoxla",
             "IDReceived_info": "Qəbul edildi, gözləyin...",
             "sendFrontID_info": "Zəhmət olmasa, şəxsiyyət vəsiqənizin ön tərəfinin şəkilini göndərin."
         };
