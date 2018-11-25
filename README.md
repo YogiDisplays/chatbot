@@ -2,8 +2,7 @@
 ##### An automated and scalable customer eligibility checker for banks' products/services. 
 
 #### What is it?
-Mirza AI provides an easy way to validate customers that If they're eligible for the banks' products and services or not. Mirza AI asks some questions and requests a photo of an ID card. After the whole process of steps, we can extract the PIN code of the ID card and use some official APIs (not integrated) to verify it. Mirza AI is offering a dynamic content and flexible structure that can be adapted to any dashboard and database.
-
+Mirza AI provides an easy way to validate customers that If they're eligible for the banks' products and services or not. Mirza AI asks some questions and requests a photo of an ID card to understand the customer. After the whole process of steps, we can extract the PIN code of the ID card and use some official APIs (not integrated) to verify it. Mirza AI is offering a dynamic content and flexible structure that can be adapted to any dashboard and database. Mirza AI has a symbolic loan, insurance, and travel features. It doesn't represent the actual product. In this state of Mirza AI, the banks should add their own logic to the bot. We're planning to make an awesome dashboard that provides every little insight of the customer interaction.
 **Please be aware of that, this is a conceptual project.**
 
 #### Why Mirza?
