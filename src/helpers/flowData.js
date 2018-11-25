@@ -1,3 +1,7 @@
+/**
+ * @module flowData
+ * @description A flow data container.
+ */
 module.exports = (action, v = null) => {
     switch (action) {
         case "askSalary_qn":

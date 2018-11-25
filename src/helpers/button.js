@@ -1,3 +1,7 @@
+/**
+ * @module Button
+ * @description Generating dynamically chat bot GUI buttons.
+ */
 module.exports = (arr, pbName) => {
     let buttons = [];
     for (let x = 0; x < arr.length; x++) {
