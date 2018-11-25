@@ -51,11 +51,8 @@ function res(s, c) {
                         if (service.id === 1) {
                             const sLimits = config.limits.salary;
                             const moneyValidation = money.isValid(text, sLimits);
-                            if (!moneyValidation.comma) {
-                                return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                            } else if (!moneyValidation.limits) {
-                                return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                            }
+                            if (!moneyValidation.comma) return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                            if (!moneyValidation.limits) return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                             const amount = convo.get('amount');
                             if (Number(text) <= Number(amount) * 25 / 100) {
                                 convo.say({
@@ -86,13 +83,11 @@ function res(s, c) {
                 convo.ask(trans("askAmount_qn", [service.title]), (payload, convo) => {
                     if (typeof payload.message !== "undefined") {
                         const text = payload.message.text;
+
                         const sLimits = config.limits.loan;
                         const moneyValidation = money.isValid(text, sLimits);
-                        if (!moneyValidation.comma) {
-                            return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                        } else if (!moneyValidation.limits) {
-                            return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                        }
+                        if (!moneyValidation.comma) return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                        if (!moneyValidation.limits) return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                         next({
                             payload: {convo, service, text, serviceIndex, askType: "amount"},
                             config: {intReq: true}
