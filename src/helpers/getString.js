@@ -10,7 +10,7 @@ module.exports = (s, v = null) => {
             "chooseProduct_info": "Maraqlandığınız məhsullarımızdan birini seçin:",
             "ineligibleCustomer_info": "Təəssüf ki, siz {0} almağa uyğun deyilsiniz.",
             "tryAgain_info": "Yenidən yoxla",
-            "IDReceived_info": "Qəbul edildi.",
+            "IDReceived_info": "Qəbul edildi, gözləyin...",
             "sendFrontID_info": "Zəhmət olmasa, şəxsiyyət vəsiqənizin ön tərəfinin şəkilini göndərin."
         };
 

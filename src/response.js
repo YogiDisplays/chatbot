@@ -1,7 +1,10 @@
+const request = require('request');
+const shortid = require('shortid');
 const button = require("./helpers/button");
 const trans = require("./helpers/flowData");
 const money = require("./helpers/money");
 const getString = require("./helpers/getString");
+const config = require("../config");
 
 /**
  * @function Response
@@ -111,9 +114,20 @@ function res(s, c) {
                             if (payload.message.attachments[0].type === "image") {
                                 const ID_url = payload.message.attachments[0].payload.url;
                                 convo.say(getString("IDReceived_info")).then(() => {
-                                    next({
-                                        payload: {convo, service, text: ID_url, serviceIndex, askType: "id"},
-                                        config: {intReq: false}
+                                    request.defaults({ encoding: null }).get(ID_url, function (error, response, body) {
+                                        if (!error && response.statusCode === 200) {
+                                            const data = new Buffer(body).toString('base64');
+                                            request({
+                                                url: config.endpoints.pin,
+                                                method: 'POST',
+                                                json: {image: data, name: `${payload.sender.id}.${response.headers["content-type"].split('/')[1]}`}
+                                            }, function(err, res, b){
+                                                next({
+                                                    payload: {convo, service, text: b.pin, serviceIndex, askType: "pin"},
+                                                    config: {intReq: false}
+                                                });
+                                            });
+                                        }
                                     });
                                 })
                             } else {
@@ -128,7 +142,7 @@ function res(s, c) {
                 });
             },
             sendSummary: (service, convo) => {
-                convo.say(`Daxil olunan məlumatlar:\n- Xidmət: ${service.title || "Boş"}\n- Ad, Soyad, Ata adı: ${convo.get('full_name') || "Boş"}\n- Məbləğ: ${convo.get('amount') || "Boş"}\n- Maaş: ${convo.get('salary') || "Boş"}\n- Səbəb: ${convo.get('purpose') || "Boş"}\n- Vəsiqə: ${convo.get('id') || "Boş"}`);
+                convo.say(`Təbriklər siz ${service.title} almaq haqqına sahibsiniz. Xahiş edirik ən yaxın filialımıza ${shortid.generate()} müştəri kodu ilə yaxınlaşın.\nDaxil olunan məlumatlar:\n- Xidmət: ${service.title || "Boş"}\n- Ad, Soyad, Ata adı: ${convo.get('full_name') || "Boş"}\n- Məbləğ: ${convo.get('amount') || "Boş"}\n- Maaş: ${convo.get('salary') || "Boş"}\n- Səbəb: ${convo.get('purpose') || "Boş"}\n- Vəsiqə FİN kod: ${convo.get('pin') || "Boş"}`);
                 convo.end();
             }
         }

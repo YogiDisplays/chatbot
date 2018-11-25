@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootbot": "^1.0.16"
+    "bootbot": "^1.0.16",
+    "request": "^2.88.0",
+    "shortid": "^2.2.14"
   }
 }
