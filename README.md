@@ -1,3 +1,4 @@
+![](mirza.png)
 ## Mirza AI
 ##### An automated and scalable customer eligibility checker for banks' products/services. 
 
