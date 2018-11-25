@@ -4,7 +4,7 @@
 #### Why Mirza?
 We thought the Mirza name is the most popular customer support name. So, we named our product Mirza AI.
 
-#### How to install
+#### Usage
     npm install
 1. Install all the required modules.
 2. Running on local
