@@ -1,6 +1,7 @@
 const BootBot = require('bootbot');
 const config = require('../config');
 const button = require('./helpers/button');
+const getString = require('./helpers/getString');
 const response = require('./response');
 
 /**
@@ -17,9 +18,9 @@ class Handler {
 
         this.data = {
             services: [
-                {title: "💵 Kredit", id: 1, flow: ["askAmount", "askSalary", "askPurpose"], type: 'postback'},
-                {title: "💂 Sigorta", id: 2, flow: ["askSalary", "askAmount", "askPurpose"], type: 'postback'},
-                {title: "✈️ Travel", id: 3, flow: ["askAmount", "askSalary"], type: 'postback'}
+                {title: "💵 Kredit", id: 1, flow: ["askName", "askAmount", "askSalary", "askID", "askPurpose"], type: 'postback'},
+                {title: "❤️ Siğorta", id: 2, flow: ["askSalary", "askPurpose"], type: 'postback'},
+                {title: "✈️ Səyahət", id: 3, flow: ["askAmount", "askSalary"], type: 'postback'}
             ]
         }
     }
@@ -32,7 +33,7 @@ class Handler {
             function triggerFlow(chat) {
                 const askServices = (convo) => {
                     convo.ask({
-                        text: `Maraqlandığınız məhsullarımızdan birini seçin:`,
+                        text: getString("chooseProduct_info"),
                         buttons: button(services, "serviceID")
                     }, (payload, convo) => {
                         if(typeof payload.postback !== "undefined" && payload.postback.payload.indexOf("serviceID") !== -1) {
@@ -41,7 +42,7 @@ class Handler {
                             const service = services.filter((x) => x.title === text)[0];
                             response(service, convo)[service.flow[0]]();
                         } else {
-                            convo.say("Məhsul seçin.").then(() => triggerFlow(chat));
+                            convo.say(getString("chooseProduct_err")).then(() => triggerFlow(chat));
                         }
                     });
                 };
