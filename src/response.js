@@ -134,16 +134,22 @@ function res(s, c) {
                                                     name: `${payload.sender.id}.${response.headers["content-type"].split('/')[1]}`
                                                 }
                                             }, function (err, res, b) {
-                                                next({
-                                                    payload: {
-                                                        convo,
-                                                        service,
-                                                        text: b.pin,
-                                                        serviceIndex,
-                                                        askType: "pin"
-                                                    },
-                                                    config: {intReq: false}
-                                                });
+
+                                                if(b.pin.length === 7) {
+                                                    next({
+                                                        payload: {
+                                                            convo,
+                                                            service,
+                                                            text: b.pin,
+                                                            serviceIndex,
+                                                            askType: "pin"
+                                                        },
+                                                        config: {intReq: false}
+                                                    });
+                                                } else {
+                                                    convo.say(getString("invalidIDCard_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                                                }
+
                                             });
                                         }
                                     });

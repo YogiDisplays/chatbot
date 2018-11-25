@@ -14,6 +14,7 @@ module.exports = (s, v = null) => {
             "intReq_err": "Yalnız rəqəm daxil edin (vergüldən istifadə etməyin).",
             "invalidInput_err": "Düzgün məlumat qeyd edin.",
             "invalidFileType_err": "Göndərilən fayl, şəkil deyil.",
+            "invalidIDCard_err": "Təqdim olunan şəxsiyyət vəsiqəsi təsdiqlənə bilmədi. Xahiş edirik yenidən daha keyfiyyətli formada ön hissəsinin şəkilini çəkib göndərəsiniz.",
 
             "chooseProduct_info": "Maraqlandığınız məhsullarımızdan birini seçin:",
             "ineligibleCustomer_info": "Təəssüf ki, siz {0} almağa uyğun deyilsiniz.",
