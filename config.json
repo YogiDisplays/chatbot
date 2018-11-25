@@ -1,9 +1,9 @@
 {
   "tokens": {
     "messenger": {
-      "accessToken": "EAAOOZB2TZANngBAI7ST4UMli3JG5ZBq0NvKGAECrZCrUIzopouaC5iJec2wgm3VptnMcZADsrq284P7vNSLiKYRjzy9PDIZCFrovtwPdesvyZC7rmUnijZB5ZCxsCkYSjZB33gE3TCKKMvtYrFzrv7Ia7oK3hHSlAFJ2pOBnU5ohF1sQZDZD",
-      "verifyToken": "fintech_token",
-      "appSecret": "66f6370d58713090b79ebbd3e4f2a821"
+      "accessToken": "EAAOOZB2TZANngBAIflqixeSkeXDqnxTR8n4sRmu4ckWAAZA0VHLARXz8ZA3g52nsxkq4O4KvNzDgyG84dAk7gZCNZBQAnvmfHUISddQjJG6ygzHHwaud3YIdxiYtwJzNLi2poZAhVYfTwr46cZAmXsZBKVCCWz6a4f1vXaivi7ZCA6cAZDZD",
+      "verifyToken": "@@tokenfin44",
+      "appSecret": "cd6a9bb72ba4efe079a27272a863daa0"
     }
   },
   "endpoints": {
