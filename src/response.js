@@ -12,16 +12,18 @@ const config = require("../config");
  */
 function res(s, c) {
     try {
-        // Proceed to the next phase If there is one, If not, show the summary/result phase to end it.
+        // Proceed to the next phase If there is one, If not, show the summary/result phase as the end of the conversation.
         function next(obj) {
             const {convo, service, text, serviceIndex, askType} = obj.payload;
             const {intReq} = obj.config;
             if (intReq && isNaN(text)) return convo.say(getString("intReq_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-            convo.set(askType, text);
+            convo.set(askType, text); // Inserts the user input to the conversation tree. So, we can track and store it while conversation is active.
             return res(service, convo)[typeof service.flow[serviceIndex + 1] !== "undefined" ? service.flow[serviceIndex + 1] : "sendSummary"](service, convo);
         }
 
+        // Recursive structure that enables to proceed to the next steps of flow.
         return {
+            // This is the asking full name part. It validates the name and the character limits.
             askName: (service = s, convo = c) => {
                 const serviceIndex = service.flow.indexOf("askName");
                 convo.ask(trans("askName_qn"), (payload, convo) => {
@@ -112,6 +114,7 @@ function res(s, c) {
                     }
                 });
             },
+            // In this part, we're requesting an image as a attachment and then we're encoding it as base64 and sending to the our Python back-end that extracts specific texts like PIN.
             askID: (service = s, convo = c) => {
                 const serviceIndex = service.flow.indexOf("askID");
                 convo.ask(trans("askID_qn", [service.title]), (payload, convo) => {
@@ -158,7 +161,7 @@ function res(s, c) {
             },
             sendSummary: (service, convo) => {
                 convo.say({
-                    text: `Təbriklər siz ${service.title} almaq haqqına sahibsiniz. Xahiş edirik ən yaxın filialımıza ${shortid.generate()} müştəri kodu ilə yaxınlaşın.\nDaxil olunan məlumatlar:\n- Xidmət: ${service.title || "Boş"}\n- Ad, Soyad, Ata adı: ${convo.get('full_name') || "Boş"}\n- Məbləğ: ${convo.get('amount') || "Boş"}\n- Maaş: ${convo.get('salary') || "Boş"}\n- Səbəb: ${convo.get('purpose') || "Boş"}\n- Vəsiqə FİN kod: ${convo.get('pin') || "Boş"}`,
+                    text: `Təbriklər siz ${service.title} almaq haqqına sahibsiniz. Xahiş edirik ən yaxın filialımıza "${shortid.generate()}" müştəri kodu ilə yaxınlaşın.\nDaxil olunan məlumatlar:\n- Xidmət: ${service.title || "Boş"}\n- Ad, Soyad, Ata adı: ${convo.get('full_name') || "Boş"}\n- ${service.title} məbləği: ${convo.get('amount') || "Boş"}\n- Maaş: ${convo.get('salary') || "Boş"}\n- Səbəb: ${convo.get('purpose') || "Boş"}\n- Ş.V. FİN kodu: ${convo.get('pin') || "Boş"}`,
                     buttons: [
                         {type: 'postback', title: getString("tryAgain_info"), payload: 'GET_STARTED'}
                     ]

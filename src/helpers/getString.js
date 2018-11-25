@@ -1,4 +1,10 @@
+/**
+ * @module getString
+ * @description A static local text storage.
+ */
 module.exports = (s, v = null) => {
+    // This module is like flowData but not related to the main flow texts. It provides errors and warnings that appears in the bot.
+    // It supports dynamic templating inside of strings (optional).
     try {
         const stringList = {
             "chooseProduct_err": "Məhsul seçin.",

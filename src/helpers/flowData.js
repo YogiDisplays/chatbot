@@ -3,6 +3,7 @@
  * @description A flow data container.
  */
 module.exports = (action, v = null) => {
+    // Providing flow related texts with their variables (optional).
     switch (action) {
         case "askName_qn":
             return `Ad, Soyad, Ata adı:`;
