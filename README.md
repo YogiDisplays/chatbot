@@ -15,10 +15,13 @@ The data extraction part is written in Python and uses OCR. Unfortunately, we ca
 #### Usage
     npm install
 1. Install all the required modules.
+2. Create a Facebook app and enter the credentials to "config.json" (https://developers.facebook.com/docs/apps/).
 2. Running on local
     - Install the ngrok proxy tunneling software to expose an HTTPS server to the network.
     - Copy the generated ngrok website URL to Messenger's webhook field in the Developer Console of Facebook (e.g.: https://7a59bdbe.eu.ngrok.io/webhook)
     - Enter the validation token on the below field called **Verify Token** (check 'verifyToken' @ config.json).
     - You're almost ready! Now run the server with the `npm start` command.
-3. Running on production
+4. Running on production
     - The installation steps are same but again you have to run it via HTTPS server.
+    
+You can access to our bot on https://www.messenger.com/t/mirzaaibot. Which is still in the review process by Facebook.
