@@ -3,10 +3,11 @@ const trans = require("./helpers/flowData");
 
 /**
  * @function Response
- * @description Core flow manager.
+ * @description Recursive flow manager.
  */
 function res(s, c) {
     try {
+        // Proceed to the next phase If there is one, If not, show the summary/result phase to end it.
         function next(obj) {
             const {convo, service, text, serviceIndex, askType} = obj.payload;
             const {intReq} = obj.config;

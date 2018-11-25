@@ -26,6 +26,8 @@ class Handler {
 
     main() {
         try {
+            this.init.setGetStartedButton("GET_STARTED");
+
             const {services} = this.data;
             function triggerFlow(chat) {
                 const askServices = (convo) => {
@@ -33,7 +35,7 @@ class Handler {
                         text: `Maraqlandığınız məhsullarımızdan birini seçin:`,
                         buttons: button(services, "serviceID")
                     }, (payload, convo) => {
-                        if(typeof payload.postback !== "undefined") {
+                        if(typeof payload.postback !== "undefined" && payload.postback.payload.indexOf("serviceID") !== -1) {
                             const text = payload.postback.title;
                             convo.set('service', text);
                             const service = services.filter((x) => x.title === text)[0];
@@ -53,13 +55,9 @@ class Handler {
                 triggerFlow(chat);
             });
 
-            this.init.on('postback', (payload, chat) => {
-                if(payload.postback.payload === "GET_STARTED") {
-                    triggerFlow(chat);
-                }
+            this.init.on('postback:GET_STARTED', (payload, chat) => {
+                triggerFlow(chat);
             });
-
-            this.init.setGetStartedButton("GET_STARTED");
 
             this.init.start(5000);
         } catch(ex) {
