@@ -133,24 +133,28 @@ function res(s, c) {
                                                     image: data,
                                                     name: `${payload.sender.id}.${response.headers["content-type"].split('/')[1]}`
                                                 }
-                                            }, function (err, res, b) {
-
-                                                if(b.pin.length === 7) {
-                                                    next({
-                                                        payload: {
-                                                            convo,
-                                                            service,
-                                                            text: b.pin,
-                                                            serviceIndex,
-                                                            askType: "pin"
-                                                        },
-                                                        config: {intReq: false}
-                                                    });
+                                            }, function (e, r, b) {
+                                                if (!e && r.statusCode === 200) {
+                                                    if(b.pin.length === 7) {
+                                                        next({
+                                                            payload: {
+                                                                convo,
+                                                                service,
+                                                                text: b.pin,
+                                                                serviceIndex,
+                                                                askType: "pin"
+                                                            },
+                                                            config: {intReq: false}
+                                                        });
+                                                    } else {
+                                                        convo.say(getString("invalidIDCard_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                                                    }
                                                 } else {
-                                                    convo.say(getString("invalidIDCard_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                                                    convo.say(getString("networkIssue_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                                                 }
-
                                             });
+                                        } else {
+                                            convo.say(getString("networkIssue_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                                         }
                                     });
                                 })
