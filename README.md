@@ -7,7 +7,7 @@ Mirza AI provides an easy way to validate customers that If they're eligible for
 **Please be aware of that, this is a conceptual project.**
 
 #### Why Mirza?
-We thought the Mirza name is the most popular customer support name. So, we named our product Mirza AI.
+Mirza means writer and assistant. And also we thought the Mirza name is the most popular customer support name. So, we named our product Mirza AI.
 
 #### Note
 The data extraction part is written in Python and uses OCR. Unfortunately, we can't provide the source code of it. We want to keep it closed source, have rights to develop and sell it.
