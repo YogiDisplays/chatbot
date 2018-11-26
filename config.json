@@ -1,9 +1,9 @@
 {
   "tokens": {
     "messenger": {
-      "accessToken": "EAAOOZB2TZANngBAIflqixeSkeXDqnxTR8n4sRmu4ckWAAZA0VHLARXz8ZA3g52nsxkq4O4KvNzDgyG84dAk7gZCNZBQAnvmfHUISddQjJG6ygzHHwaud3YIdxiYtwJzNLi2poZAhVYfTwr46cZAmXsZBKVCCWz6a4f1vXaivi7ZCA6cAZDZD",
+      "accessToken": "EAAEvk6oZACyYBABSAAbVPaL4SzydEifIGUZCQQpZBtzL9MFGEtMksviJSJgJZB50kAQ5uMlH7CkNH7nTjJIG9hpDLFdv4IfnizNPf0X3PKKIRIJZCo57akYfoSBhqNFmw7tjt41s0MybZC1fwxjw9HJGVT9Uji2wY1rbu6rI4pmwZDZD",
       "verifyToken": "@@tokenfin44",
-      "appSecret": "cd6a9bb72ba4efe079a27272a863daa0"
+      "appSecret": "1f2e9b568327655e69fb18eeacd4a4d6"
     }
   },
   "endpoints": {
@@ -13,5 +13,7 @@
     "loan": [100, 25000],
     "salary": [120, 100000],
     "name": [3, 25]
-  }
+  },
+  "timeout": 5,
+  "currency": "AZN"
 }

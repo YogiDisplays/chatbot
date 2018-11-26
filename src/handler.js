@@ -2,6 +2,7 @@ const BootBot = require('bootbot');
 const config = require('../config');
 const button = require('./helpers/button');
 const getString = require('./helpers/getString');
+const timeout = require('./helpers/timeout');
 const response = require('./response');
 
 /**
@@ -22,8 +23,8 @@ class Handler {
         this.data = {
             services: [
                 {title: "💵 Kredit", id: 1, flow: ["askName", "askAmount", "askSalary", "askID", "askPurpose"], type: 'postback'},
-                {title: "❤️ Siğorta", id: 2, flow: ["askSalary", "askPurpose"], type: 'postback'},
-                {title: "✈️ Səyahət", id: 3, flow: ["askAmount", "askSalary"], type: 'postback'}
+                {title: "❤️ Siğorta", id: 2, flow: ["askName", "askAmount", "askSalary", "askID", "askPurpose"], type: 'postback'},
+                {title: "✈️ Səyahət", id: 3, flow: ["askName", "askAmount", "askSalary", "askID", "askPurpose"], type: 'postback'}
             ]
         }
     }
@@ -38,6 +39,7 @@ class Handler {
             const {services} = this.data;
             function triggerFlow(chat) {
                 const askServices = (convo) => {
+                    timeout(convo);
                     convo.ask({
                         text: getString("chooseProduct_info"),
                         buttons: button(services, "serviceID")

@@ -1,3 +1,5 @@
+const config = require("../../config");
+
 /**
  * @module getString
  * @description A static local text storage.
@@ -7,21 +9,22 @@ module.exports = (s, v = null) => {
     // It supports dynamic templating inside of strings (optional).
     try {
         const stringList = {
-            "chooseProduct_err": "Məhsul seçin.",
-            "invalidMoneyComma_err": "Nöqtə və vergüldən istifadə etməyin.",
-            "invalidMoneyLimits_err": "Limiti keçdiniz. Məbləğ limitləri: minimum {0}, maksimum {1}",
-            "invalidCharLimits_err": "Limiti keçdiniz. Simvol limitləri: minimum {0}, maksimum {1}",
-            "intReq_err": "Yalnız rəqəm daxil edin (vergüldən istifadə etməyin).",
-            "invalidInput_err": "Düzgün məlumat qeyd edin.",
-            "invalidFileType_err": "Göndərilən fayl, şəkil deyil.",
-            "invalidIDCard_err": "Təqdim olunan şəxsiyyət vəsiqəsi təsdiqlənə bilmədi. Xahiş edirik yenidən daha keyfiyyətli formada ön hissənin şəkilini çəkib göndərəsiniz.",
-            "networkIssue_err": "Şəbəkə ilə rabitə problemi yaşandı. Xahiş edirik yenidən yoxlayasınız.",
+            "chooseProduct_err": "🔴 Məhsul seçin.",
+            "invalidMoneyComma_err": "🔴 Nöqtə və vergüldən istifadə etməyin.",
+            "invalidMoneyLimits_err": `🔴 Ən az {0}, ən çox {1} ${config.currency} qəbul edilir. Xahiş edirik ki, yenidən yazasınız.`,
+            "invalidCharLimits_err": "🔴 Ən az {0}, ən çox {1} simvol qəbul edilir. Xahiş edirik ki, yenidən yazasınız.",
+            "intReq_err": "🔴 Yalnız rəqəm daxil edin (vergül və nöqtədən istifadə etməyin).",
+            "invalidInput_err": "🔴 Düzgün məlumat qeyd edin.",
+            "invalidFileType_err": "🖼 Göndərilən fayl, şəkil deyil.",
+            "invalidIDCard_err": "🖼 Təqdim olunan şəxsiyyət vəsiqəsi təsdiqlənə bilmədi. Xahiş edirik yenidən daha keyfiyyətli formada ön hissənin şəkilini çəkib göndərəsiniz.",
+            "networkIssue_err": "📶 Şəbəkə ilə rabitə problemi yaşandı. Xahiş edirik yenidən yoxlayasınız.",
+            "chatTimeout_err": "⌛ Seans sonlandırıldı. İstənilən vaxt, yenidən başlaya bilərsiniz.",
 
-            "chooseProduct_info": "Maraqlandığınız məhsullarımızdan birini seçin:",
-            "ineligibleCustomer_info": "Təəssüf ki, siz {0} almağa uyğun deyilsiniz.",
+            "chooseProduct_info": "Məhsullarımızdan birini seçin:",
+            "ineligibleCustomer_info": "😔 Təəssüf ki, siz {0} almağa uyğun deyilsiniz.",
             "tryAgain_info": "🔁 Yenidən yoxla",
-            "IDReceived_info": "Qəbul edildi, gözləyin...",
-            "sendFrontID_info": "Zəhmət olmasa, şəxsiyyət vəsiqənizin ön tərəfinin şəkilini göndərin."
+            "IDReceived_info": "✅ Qəbul edildi, gözləyin...",
+            "sendFrontID_info": "💁 Zəhmət olmasa, şəxsiyyət vəsiqənizin ön tərəfinin şəkilini göndərin."
         };
 
         if(v != null) {

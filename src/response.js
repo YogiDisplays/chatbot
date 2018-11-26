@@ -51,8 +51,9 @@ function res(s, c) {
                         if (service.id === 1) {
                             const sLimits = config.limits.salary;
                             const moneyValidation = money.isValid(text, sLimits);
+                            if (!moneyValidation.int) return convo.say(getString("intReq_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                             if (!moneyValidation.comma) return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                            if (!moneyValidation.limits) return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                            if (!moneyValidation.limits) return convo.say(getString("invalidCharLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                             const amount = convo.get('amount');
                             if (Number(text) <= Number(amount) * 25 / 100) {
                                 convo.say({
@@ -86,8 +87,9 @@ function res(s, c) {
 
                         const sLimits = config.limits.loan;
                         const moneyValidation = money.isValid(text, sLimits);
+                        if (!moneyValidation.int) return convo.say(getString("intReq_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                         if (!moneyValidation.comma) return convo.say(getString("invalidMoneyComma_err")).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
-                        if (!moneyValidation.limits) return convo.say(getString("invalidMoneyLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
+                        if (!moneyValidation.limits) return convo.say(getString("invalidCharLimits_err", [sLimits[0], sLimits[1]])).then(() => res(service, convo)[service.flow[serviceIndex]](service, convo));
                         next({
                             payload: {convo, service, text, serviceIndex, askType: "amount"},
                             config: {intReq: true}

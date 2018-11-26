@@ -1,3 +1,5 @@
+const config = require("../../config");
+
 /**
  * @module flowData
  * @description A flow data container.
@@ -8,9 +10,9 @@ module.exports = (action, v = null) => {
         case "askName_qn":
             return `Ad, Soyad, Ata adı:`;
         case "askSalary_qn":
-            return `Aylıq gəliriniz (AZN):`;
+            return `Aylıq gəliriniz (${config.currency}):`;
         case "askAmount_qn":
-            return `${v[0]} məbləği (AZN):`;
+            return `${v[0]} məbləği (${config.currency}):`;
         case "askPurpose_qn":
             return `Nə üçün ${v[0]} istəyirsiniz?`;
         case "askID_qn":
