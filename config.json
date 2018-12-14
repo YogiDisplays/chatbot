@@ -1,13 +1,13 @@
 {
   "tokens": {
     "messenger": {
-      "accessToken": "EAAOOZB2TZANngBAIflqixeSkeXDqnxTR8n4sRmu4ckWAAZA0VHLARXz8ZA3g52nsxkq4O4KvNzDgyG84dAk7gZCNZBQAnvmfHUISddQjJG6ygzHHwaud3YIdxiYtwJzNLi2poZAhVYfTwr46cZAmXsZBKVCCWz6a4f1vXaivi7ZCA6cAZDZD",
-      "verifyToken": "@@tokenfin44",
-      "appSecret": "cd6a9bb72ba4efe079a27272a863daa0"
+      "accessToken": "<FB_ACCESS_TOKEN>",
+      "verifyToken": "<FB_VERIFY_TOKEN>",
+      "appSecret": "<FB_APP_SECRET>"
     }
   },
   "endpoints": {
-    "pin": "http://18.224.200.95:4567/upload"
+    "pin": "<OCR_server_IP_address>"
   },
   "limits": {
     "loan": [100, 25000],
